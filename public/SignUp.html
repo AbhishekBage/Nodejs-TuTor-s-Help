@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <title>Registeration</title>
+  <style>
+    #Box {
+
+
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+
+
+    }
+
+    #Form-box {
+
+      border: 2px groove;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      background-color: aliceblue;
+
+    }
+
+    label {
+      text-shadow: 1px 1px 1px grey;
+      font-weight: bold;
+    }
+
+    #head {
+      text-shadow: 3px 3px 3px black;
+      font-size: 35px;
+
+    }
+  </style>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<body>
+  <div class="container-fluid overflow-auto bg-primary ">
+    <center>
+      <p class="display-4 text-white " id="head" style="font-family: 'Galada',Cursive;">Tutor'sHelp</p>
+    </center>
+  </div>
+   <br>
+   <br>
+   <br>
+
+
+
+
+  <div class="container bg-dark  overflow-auto " id="Box" style="height:80px">
+    <center><p class="text-white  " id="head" style="font-family:georgia;">Sign Up for Tutor's</p></center>
+  </div>
+
+  <!-- form starts -->
+  <div class=" container shadow-lg p-3 mb-5 " id="Form-box">
+    <form class="form" action="#" method="post">
+
+      <label>Name:</label><input type="text" name="name" class="form-control" id="name" placeholder="Name">
+      <p id="checkname"></p>
+      <br>
+      <label>Subject:  <p style="color:brown">( *that to wants to teach)</p></label>
+      <select class="form-select form-control" name="subject">
+        <option value="">English</option>  
+        <option value="">Maths</option>
+        <option value="">Hindi</option>
+        <option value="">Physics</option>
+        <option value="">Chemistry</option>
+        <option value="">Biology</option>
+        <option value="">History</option>
+        <option value="">Economics</option>
+        <option value="">Civics</option>
+      </select>
+      <br>
+     <label>Education</label>
+     <select class="form-select form-control" name="education"> 
+      <option value="1">Intermediate</option>
+      <option value="2">Graduated</option>
+      <option value="3">Post Graduate</option>
+      <option value="4">PHD</option>
+    </select>
+    <br>
+      <label>Email:</label><input type="email" name="email" id="email" class="form-control" placeholder="Email">
+
+      <br>
+      <label>Age:</label><input type="number" name="age" class="form-control" id="age" placeholder="Age">
+      <p id="checkage"></p>
+      <br>
+      <label>Phone No. </label><input type="number" name="phone" id="phone" class="form-control" placeholder="Phone No.">
+      <p id="checkphn"></p>
+      <br>
+      <label>City:</label><input type="text" name="city" class="form-control" placeholder="City"><br>
+      <label>Password:</label><input type="password" name='password' id="password" class="form-control"
+        placeholder="Password">
+      <p id="checkpass"></p>
+      <br>
+      <label>Confirm Password:</label><input type="password" name='cpassword' id="cpassword" class="form-control"
+        placeholder="Confirm Password">
+      <p id="confpass"></p>
+      <br>
+      <center><input type="submit" class="btn btn-primary " id="submitbtn" value="Submit"></center>
+    </form>
+  </div>
+  <!-- form closed -->
+  <br>
+  <center>
+    <p>Already have an Account? Then <a href="Login.php"><button class="btn btn-warning">Sign In</button></a></p>
+  </center>
+  <br>
+  <div class="container-fluid  bg-primary">
+    <br>
+    <br>
+    <center><a class="text-white" href="#">Contact Us</a>|<a class="text-white" href="#">About Us</a></center>
+    <br>
+    <br>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+
+  <!-- Form Validation -->
+  <script>
+    $(document).ready(function () {
+      $('#checkname').hide();
+      $('#checkUsername').hide();
+      $('#checkphn').hide();
+      $('#checkpass').hide();
+      $('#confpass').hide();
+      $('#checkage').hide();
+
+      var name_err = true;
+      var user_err = true;
+      var pass_err = true;
+      var pass1_err = true;
+      var phn_err = true;
+      var age_err = true;
+
+
+      // name validation 
+      $('#name').keyup(function () {
+        name_check();
+
+      });
+
+      function name_check() {
+        var name_val = $('#name').val();
+
+        if (name_val.length == '') {
+          $('#checkname').show();
+          $('#checkname').html("*Required ");
+          $('#checkname').focus();
+          $('#checkname').css("color", "red");
+          name_err = false;
+          return false;
+
+        } else {
+          $('#checkname').hide();
+        }
+
+      }
+      //phn no. validation
+      $('#phn').keyup(function () {
+        phn_check();
+        phn_unique();
+      });
+      function phn_check() {
+        var phn_val = $('#phn').val();
+
+        if (phn_val.length != 10) {
+
+          $('#checkphn').show();
+          $('#checkphn').html("**Enter a valid phone No. ");
+          $('#checkphn').focus();
+          $('#checkphn').css("color", "red");
+          phn_err = false;
+          return false;
+
+        } else {
+          $('#checkphn').hide();
+        }
+        if (isNaN(phn_val.val())) {
+          $('#checkphn').show();
+          $('#checkphn').html("**Enter a valid No.");
+          $('#checkphn').focus();
+          $('#checkphn').css("color", "red");
+          phn_err = false;
+          return false;
+        }
+        else {
+          $('#checkphn').hide();
+        }
+
+      }
+
+      function phn_unique() {
+        var phn_val = $('#phn').val();
+
+        $.ajax({
+
+          url: "check.php",
+          method: "POST",
+          data: { phone: phn_val },
+          success: function (data) {
+
+            if (data == 0) {
+              $('#checkphn').show();
+              $('#checkphn').html("phone No. Already exist");
+              $('#checkphn').focus();
+              $('#checkphn').css("color", "red");
+              return false;
+            }
+            else {
+
+              return true
+            }
+          }
+        })
+
+      }
+      //Age Validation
+      $('#age').keyup(function () {
+        age_check();
+      });
+
+      function age_check() {
+        var age_val = $('#age').val();
+
+
+        if (age_val.length < 2) {
+          $('#checkage').show();
+          $('#checkage').html("*Age must be above 10 ");
+          $('#checkage').focus();
+          $('#checkage').css("color", "red");
+          age_err = false;
+          return false;
+        }
+        else if (age_val.length > 2) {
+
+          $('#checkage').show();
+          $('#checkage').html("*Invalid Age ");
+          $('#checkage').focus();
+          $('#checkage').css("color", "red");
+          age_err = false;
+          return false;
+        }
+        else if (age_val.length == '') {
+
+          $('#checkage').show();
+          $('#checkage').html("*Required ");
+          $('#checkage').focus();
+          $('#checkage').css("color", "red");
+          age_err = false;
+          return false;
+        }
+        else {
+          $('#checkage').hide();
+        }
+      }
+      //password validation
+
+
+      $('#pass').keyup(function () {
+        pass_check();
+
+      });
+
+      function pass_check() {
+        var pass_val = $('#pass').val();
+
+        if (pass_val.length == '') {
+
+          $('#checkpass').show();
+          $('#checkpass').html("*Required ");
+          $('#checkpass').focus();
+          $('#checkpass').css("color", "red");
+          pass_err = false;
+          return false;
+
+        } else {
+          $('#checkpass').hide();
+        }
+
+        if ((pass_val.length < 6) || (pass_val.length > 12)) {
+
+          $('#checkpass').show();
+          $('#checkpass').html("*password must be between 6-12 ");
+          $('#checkpass').focus();
+          $('#checkpass').css("color", "red");
+          user_err = false;
+          return false;
+
+        } else {
+          $('#checkpass').hide();
+        }
+      }
+
+
+      //password confirmation
+      $('#pass1').keyup(function () {
+        conf_pass();
+      });
+      function conf_pass() {
+        var pass_val = $('#pass').val();
+        var pass1_val = $('#pass1').val();
+
+        if (pass1_val != pass_val) {
+          $('#confpass').show();
+          $('#confpass').html("**It should match with the password given above");
+          $('#confpass').focus();
+          $('#confpass').css("color", "red");
+
+          pass1_err = false;
+          return false;
+        }
+        else {
+          $('#confpass').hide();
+        }
+
+      }
+
+      $('#submitbtn').click(function () {
+        var name_err = true;
+        var user_err = true;
+        var pass_err = true;
+        var pass1_err = true;
+        var phn = true;
+        var age_err = true;
+
+        name_check();
+        username_check();
+        phn_check();
+        age_check();
+        pass_check();
+        conf_pass();
+
+        if ((user_err == true) && (pass_err == true) && (age_err == true) && (phn_err == true) && (pass_err == true) && (conf_pass == true)) {
+          return true;
+        }
+        else {
+          return false;
+        }
+
+      });
+
+
+    });
+
+  </script>
+
+
+</body>
+
+</html>

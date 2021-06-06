@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        #Form-box {
+            border: 0.05px groove;
+            border-radius: 10px;
+            width: 500px;
+            background-color: aliceblue;
+        }
+
+        #Box {
+            border: groove;
+            border-radius: 10px;
+            width: 500px;
+
+        }
+
+        #Input-Box {
+            margin: 10px;
+            padding: 20px;
+        }
+
+        #head {
+            text-shadow: 5px 5px 5px black;
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid overflow-auto bg-primary">
+        <center>
+            <p class="display-4 text-white " id="head" style="font-family: 'Galada',Cursive;">Tutor'sHelp</p>
+        </Center>
+    </div>
+    <br>
+    <div class="container bg-dark  overflow-auto " id="Box">
+        <center>
+            <p class="text-white" style="font-family:georgia; font-size:x-large">Student Login</p>
+        </center>
+    </div>
+
+    <div class="container shadow-lg p-3 mb-5 " id="Form-box">
+        
+        <form class="form" action="/studentlogin" method="post" id="Input-Box">
+            <label><b>Email</b></label><input type="email" name="email" class="form-control"
+                placeholder="Enter Email"><br>
+            <label><b>Password:</b></label><input type="password" name="password" class="form-control"
+                placeholder="Password"><br>
+            <center><input type="submit" class="btn btn-outline-warning" value="Sumbit"></center>
+        </form>
+
+        <br>
+        <center><a href="#">Forget Password</a></center>
+        <br>
+        <center> <button class="btn btn-outline-dark"><a href="studentSignUp">Sign up</a> </button></p>
+        </center>
+    </div>
+    <br>
+    <br>
+    <center>
+        <p>Not a Student? <a href="Login"><button class="btn btn-outline-warning">Teacher Login</button></a></p>
+    </center>
+    <br>
+    <br>
+    <div class="container-fluid bg-primary">
+        <br>
+        <br>
+        <center><a class="text-white" href="#">Contact Us</a>|<a class="text-white" href="#">About Us</a></center>
+        <br>
+        <br>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

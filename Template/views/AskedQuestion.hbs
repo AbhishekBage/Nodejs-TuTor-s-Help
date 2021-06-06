@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asked Question</title>
+    <style>
+        #head {
+            text-shadow: 3px 3px 3px black;
+            font-size: 35px;
+
+        }
+
+        .header {
+            height: 80px;
+            padding: 15px;
+        }
+
+        .box {
+            
+            margin:10px;
+            padding:10px;
+
+        }
+        .main{
+            min-height: 700px;
+            overflow:auto;
+        }
+        .heading{
+            margin-top:20px;
+            padding:30px;
+            background-color: cornflowerblue;
+            
+          }
+          p{
+        margin:8px;
+        text-decoration: solid;
+        font-weight:800;
+          }
+    </style>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+<body>
+    
+    <div class="container-fluid  bg-primary header">
+        <center>
+            <p class="display-4 text-white " id="head" style="font-family: 'Galada',Cursive;">Tutor'sHelp</p>
+        </center>
+    </div>
+   <a href="index"><button class="btn btn-danger mt-2 ml-5 mb-2">Back</button></a>
+    <div class="container main">
+        <div class="heading shadow p-3 mb-2 rounded text-white"><b><h3>Question Assigned to you </b></h3></div>
+        
+        <div class="box shadow-sm rounded">
+             {{#if Question}}
+            <form action="/sendAnswer" method="POST">
+            <label>Question:</label>&nbsp;&nbsp;<label>{{Question.question}}</label>
+            <br>
+            <label>Subject: </label><label>{{Question.subject}}</label>
+            <br>
+            <label>Write Answer: </label>
+            <input type="text" class="form-control" name="answer" id="answer">
+            <br>
+            <button class="btn btn-success">Submit</button>
+            </form>
+            {{else}}
+            <br>
+            <br>
+           <center><h1>No Question yet Assigned to You</h1></center>
+           <br>
+           <br>
+           {{/if}}
+        </div> 
+    </div>
+       <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    <div class="container-fluid bg-primary fixed-bottom">
+        <br>
+        <br>
+        <center><a class="text-white" href="#">Contact Us</a>|<a class="text-white" href="#">About Us</a></center>
+        <br>
+        <br>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>
