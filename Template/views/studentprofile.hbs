@@ -7,7 +7,7 @@
    
     <title>Students's Profile</title>
     <style>
-     span{
+     #detail{
        margin:8px;
        text-decoration: solid;
        font-weight:800;
@@ -44,43 +44,52 @@
        padding:30px;
        background-color: cornflowerblue;
      }
+      .txt{
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        
+     }
+     .flex-container{
+      display:flex;
+      flex-direction: row;
+      flex-wrap:wrap;
+      justify-content: flex-start;
+      align-items: center;
+     }
+     ul{
+      list-style-type: none;
+    }
+    .list{
+       width:300px;
+       font-size: larger;  
+    }
+    #about{
+     margin-top: 20px;
+     padding-left:20px;
+     text-align: center;
+     font-size: large;
+     font-weight: 700;
+     color:white;
+     text-shadow: 2px 2px 8px black;
+    
+    }
+    .copyright{
+      background-color: rgb(36, 71, 230);
+    }
+    #thought{
+      width:300px;
+      padding:10px;
+      color:darkblue;
+      text-align: center;
+      font-size: larger;
+    }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   
 </head>
 <body>
-    <div>
-        <!-- NavBar -->
-    <div class="container-fluid " id="Nav-Box">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-          <a class="navbar-brand ml-5" href="#">
-            <img src="Game1.jpg" width="60" height="60" class="rounded-circle align-top" alt="" loading="lazy"></a>
-          <a class="navbar-brand ml-2" style="font-family:georgia;" href="#">Tutor's Help</a>
-  
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto">
-              <li ><a href="/studentHome" class="nav-link">Home</a></li>
-              <li class="nav-item active"><a href="/studentprofile" class="nav-link" >Profile</a></li>
-              <li><a href="#" class="nav-link">Notifications</a></li>
-              <li><a href="/askQuestion" class="nav-link">Ask Questions</a></li>
-              <li><a href="#" class="nav-link">Settings</a></li>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button> 
-              </form>
-               <a href="/studentlogout"><button class="btn btn-outline-danger  my-2 my-sm-0  ml-5" >Logout</button></a>
-                 
-              
-            </ul>
-            </button>
-        </nav>
-      </div>
-      <!-- Navbar closed -->
+    
+        {{>StudentHeader}}
 
       <div class="container shadow p-3 bg-white rounded">
           <br>
@@ -93,12 +102,12 @@
           <div class="Detail-box shadow p-3 mb-5 bg-white rounded">
           <br>
         
-          <p id="name"><strong>Name:</strong> <span>{{user.name}}</span> </p>
-          <p id=Educatin> <strong>Education:</strong> <span>{{user.education}}</span></p>
-          <p id="city">  <strong>City:</strong> <span>{{user.city}}</span></p>
-          <p id="age"> <strong>Age: </strong><span>{{user.age}}</span></p>
-          <p><strong>School:</strong><span>{{user.school}}</span></p>
-          <p id="name"><strong>Role:</strong> <span>{{user.Role}}</span> </p>
+          <p id="name"><strong>Name:</strong> <span id="detail">{{user.name}}</span> </p>
+          <p id=Educatin> <strong>Education:</strong> <span id="detail">{{user.education}}</span></p>
+          <p id="city">  <strong>City:</strong> <span id="detail">{{user.city}}</span></p>
+          <p id="age"> <strong>Age: </strong><span id="detail">{{user.age}}</span></p>
+          <p><strong>School:</strong><span id="detail">{{user.school}}</span></p>
+          <p id="name"><strong>Role:</strong> <span id="detail">{{user.Role}}</span> </p>
           <br>
           </div>          
       </div>
@@ -111,14 +120,7 @@
   <strong>{{user.name}}</strong> Always Try to keep your Profile Up to date.
 </div>
       </div>
-      <div class="container-fluid  bg-primary">
-        <br>
-        <br>
-        <center><a class="text-white" href="#">Contact Us</a>|<a class="text-white" href="#">About Us</a></center>
-        <br>
-        <br>
-      </div>
-    </div>
+      {{>StudentFooter}}
 
     
 

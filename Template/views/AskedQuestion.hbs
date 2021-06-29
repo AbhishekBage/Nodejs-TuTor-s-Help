@@ -38,6 +38,81 @@
         text-decoration: solid;
         font-weight:800;
           }
+          #detail{
+       margin:8px;
+       text-decoration: solid;
+       font-weight:800;
+     }
+     body{
+      font-family: 'Times New Roman', Times, serif;
+      font-size: medium;
+     }
+     .flex-container2{
+      display:flex;
+      flex-direction: row;
+      flex-wrap:wrap;
+      justify-content:space-around;
+      align-content: center;
+     
+     }
+     .profile-box{
+       height:300px;
+       width:300px;
+       background-color: dimgrey;
+       margin-top:20px;
+       border-radius: 10px;
+     }
+     .Detail-box{
+       height:300px;
+       width:700px;
+       margin: 20px;
+       background-color: aliceblue;
+       padding:25px;
+      
+     }
+     .profile-head{
+       
+       padding:30px;
+       background-color: cornflowerblue;
+     }
+      .txt{
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        
+     }
+     .flex-container{
+      display:flex;
+      flex-direction: row;
+      flex-wrap:wrap;
+      justify-content: flex-start;
+      align-items: center;
+     }
+     ul{
+      list-style-type: none;
+    }
+    .list{
+       width:300px;
+       font-size: larger;  
+    }
+    #about{
+     margin-top: 20px;
+     padding-left:20px;
+     text-align: center;
+     font-size: large;
+     font-weight: 700;
+     color:white;
+     text-shadow: 2px 2px 8px black;
+    
+    }
+    .copyright{
+      background-color: rgb(36, 71, 230);
+    }
+    #thought{
+      width:300px;
+      padding:10px;
+      color:darkblue;
+      text-align: center;
+      font-size: larger;
+    } 
     </style>
 </head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -45,11 +120,7 @@
 
 <body>
     
-    <div class="container-fluid  bg-primary header">
-        <center>
-            <p class="display-4 text-white " id="head" style="font-family: 'Galada',Cursive;">Tutor'sHelp</p>
-        </center>
-    </div>
+    {{>TeacherHeader}}
    <a href="index"><button class="btn btn-danger mt-2 ml-5 mb-2">Back</button></a>
     <div class="container main">
         <div class="heading shadow p-3 mb-2 rounded text-white"><b><h3>Question Assigned to you </b></h3></div>
@@ -61,6 +132,10 @@
             <br>
             <label>Subject: </label><label>{{Question.subject}}</label>
             <br>
+            {{#if Question.image}}
+            <label>Image</label><p><img class="img-fluid" src="./QuesUpload/{{Question.image}}" width="200px"></p>
+            <br>
+            {{/if}}
             <label>Write Answer: </label>
             <input type="text" class="form-control" name="answer" id="answer">
             <br>
@@ -75,19 +150,7 @@
            {{/if}}
         </div> 
     </div>
-       <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    <div class="container-fluid bg-primary fixed-bottom">
-        <br>
-        <br>
-        <center><a class="text-white" href="#">Contact Us</a>|<a class="text-white" href="#">About Us</a></center>
-        <br>
-        <br>
-    </div>
+    {{>TeacherFooter}}
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

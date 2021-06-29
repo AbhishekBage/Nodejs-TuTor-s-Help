@@ -10,13 +10,15 @@
         #Form-box{
             border:0.05px groove;
             border-radius: 10px;
-            width: 500px;
+            max-width: 500px;
+            min-width:250px;
             background-color:aliceblue;
         }
         #Box{
             border:groove;
             border-radius: 10px;
-            width: 500px;
+           max-width: 500px;
+            min-width:250px;
             
         }
         #Input-Box{
@@ -35,6 +37,11 @@
         <center><p class="display-4 text-white " id="head" style="font-family: 'Galada',Cursive;">Tutor'sHelp</p></Center>
         </div>
         <br>
+        {{#if message}}
+    <div class="alert alert-success container" role="alert">
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif;"><center>{{this.message}}</center></p>
+    </div>
+    {{/if}}
         <div class="container bg-dark  overflow-auto " id="Box" >
             <center><p class="text-white" style="font-family:georgia; font-size:x-large" >Teacher's Login</p></center>
             </div>

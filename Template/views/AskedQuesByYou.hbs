@@ -40,6 +40,44 @@
          text-decoration: solid;
          font-weight:700;
         }
+         .txt{
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        
+     }
+     .flex-container{
+      display:flex;
+      flex-direction: row;
+      flex-wrap:wrap;
+      justify-content: flex-start;
+      align-items: center;
+     }
+     ul{
+      list-style-type: none;
+    }
+    .list{
+       width:300px;
+       font-size: larger;  
+    }
+    #about{
+     margin-top: 20px;
+     padding-left:20px;
+     text-align: center;
+     font-size: large;
+     font-weight: 700;
+     color:white;
+     text-shadow: 2px 2px 8px black;
+    
+    }
+    .copyright{
+      background-color: rgb(36, 71, 230);
+    }
+    #thought{
+      width:300px;
+      padding:10px;
+      color:darkblue;
+      text-align: center;
+      font-size: larger;
+    }
     </style>
 </head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -47,23 +85,29 @@
 
 <body>
 
-    <div class="container-fluid  bg-primary header">
-        <center>
-            <p class="display-4 text-white " id="head" style="font-family: 'Galada',Cursive;">Tutor'sHelp</p>
-        </center>
+    {{>StudentHeader}}
+    <br>
+    <br>
+    <br>
+     {{#if message}}
+    <div class="alert alert-success container" role="alert">
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif;">{{this.message}}</p>
     </div>
+    {{/if}}
     <div class="container main">
-        <a href="studentHome"></a><button class="btn btn-danger mt-2 ml-5 mb-2">Back</button>
+        
         <div class="heading shadow p-3 mb-2 rounded text-white"><b><h3>Question Asked By you</b></h3></div>
         {{#each Questions }}
         <div class="box shadow rounded">
             <label>Question:</label><p>{{this.question}}</p>
-            
+            <label>Image</label><p><img class="img-fluid" src="./QuesUpload/{{this.image}}" width="200px"></p>
             <label>Assigned:</label><p>{{this.assigned}}</p>
             <label>Subject:</label><p>{{this.subject}}</p>
             <label>Answered:</label><p>{{this.answered}}</p>
+            
             {{#if this.answered}}
             <label>Answer:</label><p>{{this.answer}}</p>
+            
             {{/if}}
             
         </div>
@@ -75,13 +119,7 @@
     <br>
     <br>
     <br>
-    <div class="container-fluid bg-primary fixed-bottom">
-        <br>
-        <br>
-        <center><a class="text-white" href="#">Contact Us</a>|<a class="text-white" href="#">About Us</a></center>
-        <br>
-        <br>
-    </div>
+    {{>StudentFooter}}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

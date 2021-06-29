@@ -11,7 +11,7 @@ const change = async (Question,teacher)=>{
     }
   }
 
-const AssignQuestion = async (Question)=>{
+const AssignQuestion = async (Question) => {
 
     try{
         

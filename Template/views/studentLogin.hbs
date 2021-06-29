@@ -10,14 +10,16 @@
         #Form-box {
             border: 0.05px groove;
             border-radius: 10px;
-            width: 500px;
+            max-width: 500px;
+            min-width:250px;
             background-color: aliceblue;
         }
 
         #Box {
             border: groove;
             border-radius: 10px;
-            width: 500px;
+            max-width: 500px;
+            min-width:250px;
 
         }
 
@@ -41,6 +43,11 @@
         </Center>
     </div>
     <br>
+    {{#if msg}}
+    <div class="alert alert-success container" role="alert">
+    <p style="font-family: Georgia, 'Times New Roman', Times, serif;">{{message}}</p>
+    </div>
+    {{/if}}
     <div class="container bg-dark  overflow-auto " id="Box">
         <center>
             <p class="text-white" style="font-family:georgia; font-size:x-large">Student Login</p>
@@ -52,8 +59,7 @@
         <form class="form" action="/studentlogin" method="post" id="Input-Box">
             <label><b>Email</b></label><input type="email" name="email" class="form-control"
                 placeholder="Enter Email"><br>
-            <label><b>Password:</b></label><input type="password" name="password" class="form-control"
-                placeholder="Password"><br>
+            <label><b>Password:</b></label><input type="password" name="password" class="form-control" placeholder="Password"><br>
             <center><input type="submit" class="btn btn-outline-warning" value="Sumbit"></center>
         </form>
 

@@ -4,6 +4,7 @@ const app = express();
 const path = require("path");
 const bcrypt = require("bcryptjs");
 const cookieParser = require('cookie-parser');
+const multer = require('multer');
 
 require("./db/conn");
 
@@ -15,9 +16,11 @@ const hbs = require("hbs");
 const AssignQuestion = require('./AssignQuestion');
 const Assign = require('../src/Methods/CheckQuestions');
 const Reassign = require('../src/Methods/Reassign');
-
+const { dirname } = require("path");
+const checkExpire = require('../src/Methods/checkExpire');
 const static_path = path.join(__dirname, "../public");
 const template_path = path.join(__dirname, "../Template/views");
+const partials_path = path.join(__dirname, "../Template/partials");
 const images_path = path.join(__dirname, "./images")
 
 app.use(express.json());
@@ -27,6 +30,7 @@ app.use(express.static(static_path));
 app.use(express.static(images_path));
 app.set("view engine", "hbs");
 app.set("views", template_path);
+hbs.registerPartials(partials_path);
 
 const port = process.env.PORT || 3000;
 
@@ -34,11 +38,20 @@ const port = process.env.PORT || 3000;
 
 
 //
+app.get('/',(req,res) =>{
+   
+    res.render('Main');
+});
 app.get("/login", (req, res) => {
 
     res.render("Login");
 });
 
+app.get('/TeacherHome',auth,(req,res) => {
+
+    res.render("index");
+   
+});
 app.get("/profile", auth, (req, res) => {
     console.log(`${req.cookies.jwt} this is our cookie`);
     const user = req.user;
@@ -89,10 +102,10 @@ app.get("/logout", auth, async (req, res) => {
 
         console.log("logout successfully");
         await req.user.save();
-        res.render("Login");
+        res.render("Login", { message:'Logout Successfully'});
     }
     catch (error) {
-        res.status(500).send(error);
+        res.status(500).render(error);
     }
 });
 
@@ -106,7 +119,7 @@ app.get("/studentlogout", Studentauth, async (req, res) => {
 
         console.log("logout successfully");
         await req.user.save();
-        res.render("studentLogin");
+        res.render("studentLogin",{msg:true, message:'Logout Successfully'});
     }
     catch (error) {
         res.status(500).send(error);
@@ -141,14 +154,14 @@ app.post("/register", async (req, res) => {
             });
             //Hash Password
             const registered = await teacherRegister.save();
-            res.status(201).render("Login");
+            res.status(201).render("Login", { message:'You Have been Registered Successfully!!'});
         }
         else {
             res.send("Password are not matching");
         }
     }
     catch (error) {
-        res.status(400).send(error);
+        res.status(400).render('Error');
         console.log(error);
     }
 });
@@ -182,7 +195,7 @@ app.post("/studentregister", async (req, res) => {
             });
 
             const Registered = await StudentRegister.save();
-            res.status(201).render("studentLogin");
+            res.status(201).render("studentLogin",{  msg:true, message:'You Have been Registered Successfully!!'});
         }
         else {
             res.status(400).send("Password are Not Matching");
@@ -200,8 +213,8 @@ app.post("/studentlogin", async (req, res) => {
 
         const usermail = await Register.Student.findOne({ email: email });
 
-        const isMatch = bcrypt.compare(password, usermail.password);
-
+        const isMatch = await bcrypt.compare(password, usermail.password);
+       
         const token = await usermail.generateAuthToken();
         console.log(token);
 
@@ -209,8 +222,9 @@ app.post("/studentlogin", async (req, res) => {
             expires: new Date(Date.now() + 5000000),
             httpOnly: true
         });
-
-        if (isMatch) {
+        console.log(usermail.password);
+        console.log(isMatch);
+        if (isMatch===true) {
             res.status(201).render("studentHome");
         }
         else {
@@ -233,7 +247,7 @@ app.post("/login", async (req, res) => {
 
         const usermail = await Register.Teacher.findOne({ email: email });
 
-        const isMatch = bcrypt.compare(password, usermail.password)
+        const isMatch = await bcrypt.compare(password, usermail.password)
 
 
         const token = await usermail.generateAuthToken();
@@ -259,21 +273,46 @@ app.post("/login", async (req, res) => {
     }
 });
 
+//multer storage setup
+var storage = multer.diskStorage({
+
+    destination:function(req,file,cb) {
+        cb(null, __dirname +'/images/QuesUpload');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+
+    }
+})
+
+var upload = multer({ storage: storage})
 
 //for Asking Question
-app.post('/sendQuestion', Studentauth, async (req, res) => {
+app.post('/sendQuestion', upload.single('file') ,Studentauth, async (req, res) => {
 
     try {
         const AskedQuestion = new Register.Question({
             question: req.body.question,
             subject: req.body.subject,
             askedBy: req.user._id,
+            image: req.file.filename,
         });
         const Asked = await AskedQuestion.save();
         AssignQuestion(Asked).then((result) => {
 
             if (result) {
-                res.status(200).render('studentHome');
+                const user = req.user;
+                Register.Question.find({ askedBy: user._id }, (err, Questions) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        console.log(Questions);
+                        res.status(200).render('AskedQuesByYou', {message:'Your Question has been Assigned Successfully', Questions });
+                    }
+            
+                });
+               
             } else {
                 res.status(200).render('TeacherNotFound');
             }
@@ -282,7 +321,7 @@ app.post('/sendQuestion', Studentauth, async (req, res) => {
                 console.log(err);
             })
 
-
+   
     }
     catch (error) {
         res.status(400).send(error);
@@ -304,8 +343,7 @@ app.get('/AskedQuesByYou', Studentauth, (req, res) => {
             res.render('AskedQuesByYou', { Questions });
         }
 
-    }
-    );
+    });
 
 
 });
@@ -313,7 +351,7 @@ app.get('/AskedQuesByYou', Studentauth, (req, res) => {
 app.get('/AskedQuestion', auth, (req, res) => {
 
     const user = req.user;
-    Register.Question.findOne({ assignedTo: user._id }, (err, Question) => {
+    Register.Question.findOne({ assignedTo: user._id,answered:false }, (err, Question) => {
         if (err) {
             console.log(err);
         }
@@ -323,15 +361,14 @@ app.get('/AskedQuestion', auth, (req, res) => {
                 res.render('AskedQuestion', { Question });
             }
             else {
-                console.log('else');
+                
                 res.render('AskedQuestion');
 
             }
 
         }
 
-    }
-    );
+    });
 
 });
 app.post('/sendAnswer', auth, (req, res) => {
@@ -355,11 +392,26 @@ app.post('/sendAnswer', auth, (req, res) => {
 
 });
 
-app.get('/ViewQuestion', Studentauth, (req, res) => {
 
-    res.render('ViewQuestion');
+
+app.get('/Question', auth, (req, res) => {
+    
+    const user = req.user;
+    Register.Question.find({ assignedTo: user._id,answered:true }, (err, Questions) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log(Questions);
+            res.render('AnsweredByMeQuestions', { Questions });
+        }
+
+    });
+    
 
 });
+
+
 
 app.listen(port, () => {
     console.log(`server is running at port ${port}`);
@@ -369,7 +421,9 @@ setInterval(() => {
     Assign();
 }, 3000);
 
-
+setInterval(() =>{
+    checkExpire();
+},3000);
 
 setInterval(() => {
     Reassign();

@@ -209,6 +209,9 @@ const QuestionSchema = new mongoose.Schema({
     assignedTo:{
         type:String,
     },
+    image:{
+        type:String,
+    },
     createdTime:{
       type:Date,
      
@@ -228,7 +231,8 @@ const QuestionSchema = new mongoose.Schema({
     
       const date = new Date();
       this.createdTime = date.getTime();
-      this.expireTime = date.getTime() + 300000;
+      this.reAssignTime = date.getTime() + 7200000;
+      this.expireTime = date.getTime() + 86400000;
      
      next();
  });
